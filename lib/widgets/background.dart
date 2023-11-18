@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
-  const Background({super.key});
+
+  final Widget child;
+
+  const Background({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
       width: double.infinity,
       height: double.infinity,
       child: Stack(
         children: [
-          _PurpleBox()
+          _PurpleBox(),
+
+          const _HeaderIcon(),
+
+          child
         ],
       ),
+    );
+  }
+}
+
+class _HeaderIcon extends StatelessWidget {
+  const _HeaderIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only( top: 30 ),
+        child: const Icon( Icons.person_pin, color: Colors.white, size: 100, ),
+      )
     );
   }
 }
@@ -60,7 +83,7 @@ class _Bubble extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: const Color.fromRGBO(255, 255, 255, 1)
+          color: const Color.fromRGBO(255, 255, 255, 0.05)
         ),
       );
     }
