@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/providers/login_provider.dart';
+import 'package:login/services/service.dart';
 import 'package:login/ui/custom_inputs.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -120,16 +121,23 @@ class _Form extends StatelessWidget {
                       ? null
                       : () async {
                           FocusScope.of(context).unfocus();
+                          final authService = Provider.of<AuthService>(context, listen: false);
 
                           if (!loginForm.isValidForm()) return;
 
                           loginForm.isLoading = true;
 
-                          await Future.delayed(Duration(seconds: 2));
+                          final String? errorMessage = await authService.login( loginForm.email, loginForm.password );
+
+                          if( errorMessage == null ){
+                            Navigator.pushReplacementNamed(context, 'home');
+                          } else {
+                            print(errorMessage);
+                            NotificationService.showSnack('Correo o Contraseña No Válidos');
+                          }
 
                           loginForm.isLoading = false;
 
-                          Navigator.pushReplacementNamed(context, 'home');
                         },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
