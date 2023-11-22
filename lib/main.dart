@@ -11,8 +11,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: ( _ ) => ProductsService())
+        ChangeNotifierProvider(create: ( _ ) => ProductsService()),
+        ChangeNotifierProvider(create: ( _ ) => AuthService())
       ],
       child: MyApp(),
     );
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         'login': ( _ ) => const LoginScreen(),
         'home': ( _ ) => const HomeScreen(),
         'products': ( _ ) => const ProductsScreen(),
+        'register': ( _ ) => const RegisterScreen(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.grey[300],
